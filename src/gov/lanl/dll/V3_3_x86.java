@@ -2,6 +2,7 @@ package gov.lanl.dll;
 
 import com.sun.jna.Library;
 import com.sun.jna.Pointer;
+import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 
 
@@ -45,16 +46,22 @@ public class V3_3_x86 {
 		boolean extractFeaturesFromImage(byte[] p, int height, int width);
 		String getDescriptorsAsString();
 		String getKeypointsAsString();
-		void getDescriptorsAsArray(PointerByReference p);
+		void getDescriptorsByReference(PointerByReference p);
+		void fillDescriptorArray(float[] desc);
+		
+		void getDescriptorRows(IntByReference r);
+		void getDescriptorCols(IntByReference c);
 		
 		boolean setSubjectKeypoints();
 		void getSubjectKeypoints();
+		void fillKeypointsArray(float[] keyPoints);
+		void getKeypointsSize(IntByReference s);
 		
 		void addToSubjectKeyPoints(float x, float y);
 		void setSubjectDescriptorsAfterVectorFill(int rows, int cols, int type);
 		void addToSubjectDescriptorVector(String s);
 				
-		void cleanUp(Pointer p);
+		void freeUp(Pointer p);
 	}
 	
 	

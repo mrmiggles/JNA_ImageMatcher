@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
+import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 
 import gov.lanl.dll.V3_3_x86.CLibrary;
@@ -75,20 +76,37 @@ public class Generate {
 		
 		//set the image and extract features from it
 		cl.extractFeaturesFromImage(buf1, h1, w1);
-		PointerByReference myFloats = new PointerByReference();
-		cl.getDescriptorsAsArray(myFloats);
-		
-		final Pointer descriptorVals = myFloats.getValue();
 		
 		/*
+		//use this when you want to pass around the array of floats pointer
+		PointerByReference myFloats = new PointerByReference();
+		cl.getDescriptorsByReference(myFloats);
+		final Pointer descriptorVals = myFloats.getValue();
+
 		for (int i=0; i<9; i++) {
 			Float valAti = descriptorVals.getFloat(i * Native.getNativeSize(Float.TYPE));
 			System.out.println(valAti);
 		}	
-		*/
+		
 		//free memory
-		cl.cleanUp(descriptorVals);
-				
+		cl.freeUp(descriptorVals);
+		*/
+
+		//use this method to store the array of floats in the database
+		IntByReference rows = new IntByReference();
+		IntByReference cols = new IntByReference();
+		//cl.getDescriptorRows(rows);
+		//cl.getDescriptorCols(cols);
+
+		//float[] descAsArray = new float[rows.getValue()*cols.getValue()];
+		//cl.fillDescriptorArray(descAsArray);
+		
+		IntByReference kpSize = new IntByReference();
+		cl.getKeypointsSize(kpSize);
+		float[] keyPoints = new float[kpSize.getValue() * 2];
+		cl.fillKeypointsArray(keyPoints);
+	
+		
 		return true;
 	}
 	
