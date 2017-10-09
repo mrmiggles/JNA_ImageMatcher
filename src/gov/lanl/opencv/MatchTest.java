@@ -24,8 +24,9 @@ public class MatchTest {
 		cl.setMatcher(1);			
 	}
 	public void run() {
-	       String searchObject = "C:\\Users\\299490\\Desktop\\Alexie\\MICC-Logos\\marlboro\\marlboro_9.png"; //"C:\\Users\\299490\\Desktop\\Alexie\\Subject.jpg";
-	       String searchScene = "C:\\Users\\299490\\Desktop\\Alexie\\MICC-Logos\\marlboro\\marlboro_12.png"; //"C:\\Users\\299490\\Desktop\\Alexie\\Scene.jpg";
+		   String path = TestImages.getBasePath();
+	       String searchObject = path + "\\aabatteries_2_1.jpg"; 
+	       String searchScene = path + "\\1_5v_aa_duracell_alkaline_battery.jpg";
 				
 	        try {
 	        	
@@ -62,7 +63,7 @@ public class MatchTest {
 	        
 				BufferedImage img1 =ImageIO.read(new File(searchScene));
 				
-				int size = (img1.getHeight() * img1.getWidth())/1024;
+				//int size = (img1.getHeight() * img1.getWidth())/1024;
 
 				iType1 = img1.getType();
 				if(iType1 != 5 && iType1 != 10 && iType1 != 4 && iType1 != 1){

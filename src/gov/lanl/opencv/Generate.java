@@ -10,11 +10,8 @@ import java.nio.file.StandardOpenOption;
 
 import javax.imageio.ImageIO;
 
-import com.sun.jna.Memory;
 import com.sun.jna.Native;
-import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
-import com.sun.jna.ptr.PointerByReference;
 
 import gov.lanl.dll.V3_3_x86.CLibrary;
 
@@ -75,6 +72,8 @@ public class Generate {
 		}  		
 		
 		//set the image and extract features from it
+		//when we run this function we are setting the OpenCV descriptors
+		//and keypoints
 		cl.extractFeaturesFromImage(buf1, h1, w1);
 		
 		/*
@@ -95,27 +94,36 @@ public class Generate {
 		//use this method to store the array of floats in the database
 		IntByReference rows = new IntByReference();
 		IntByReference cols = new IntByReference();
-		//cl.getDescriptorRows(rows);
-		//cl.getDescriptorCols(cols);
+		IntByReference type = new IntByReference();
+		cl.getDescriptorRows(rows);
+		cl.getDescriptorCols(cols);
+		cl.getDescriptorsType(type);
 
-		//float[] descAsArray = new float[rows.getValue()*cols.getValue()];
-		//cl.fillDescriptorArray(descAsArray);
+		float[] descAsArray = new float[rows.getValue()*cols.getValue()];
+		cl.fillDescriptorArray(descAsArray); //now you can store the float array in the Database
 		
+		
+		//function to be used after retrieving the float array, rows length, cols length and OpenCV Mat type
+		cl.setSubjectDescriptors(descAsArray, rows.getValue(), cols.getValue(), type.getValue());
+		cl.printSubjectDescriptors();
+		
+		/*
 		IntByReference kpSize = new IntByReference();
 		cl.getKeypointsSize(kpSize);
 		float[] keyPoints = new float[kpSize.getValue() * 2];
-		cl.fillKeypointsArray(keyPoints);
+		cl.fillKeypointsArray(keyPoints); //now you can store the keyPoints float array in the Database
 	
-		
+		*/
 		return true;
 	}
 	
 	
 	public static void main(String[] args){
+		
 		Generate gt = new Generate();
 		try {
 			
-			gt.setBuffersAndDimensions("C:\\Users\\299490\\Desktop\\Alexie\\Subject.jpg");
+			gt.setBuffersAndDimensions(TestImages.getSubjectPath());
 			//gt.generateDescriptorsTextFile();
 			//gt.generateKeypointsTextFile();
 			

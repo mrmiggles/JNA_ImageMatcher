@@ -8,7 +8,7 @@ public class Processing {
 
 	
 	public static BufferedImage convertToBGR(BufferedImage img) throws IOException{
-		int size = (img.getHeight() * img.getWidth())/1024;
+		//int size = (img.getHeight() * img.getWidth())/1024;
 		BufferedImage img1;
 
 		img1 = new BufferedImage(img.getWidth(), img.getHeight(),  BufferedImage.TYPE_3BYTE_BGR); 

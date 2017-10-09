@@ -51,15 +51,16 @@ public class V3_3_x86 {
 		
 		void getDescriptorRows(IntByReference r);
 		void getDescriptorCols(IntByReference c);
+		void getDescriptorsType(IntByReference t);
 		
+		void setSubjectDescriptors(float[] desc, int rows, int cols, int type);
+		void printSubjectDescriptors();
 		boolean setSubjectKeypoints();
 		void getSubjectKeypoints();
 		void fillKeypointsArray(float[] keyPoints);
 		void getKeypointsSize(IntByReference s);
 		
-		void addToSubjectKeyPoints(float x, float y);
-		void setSubjectDescriptorsAfterVectorFill(int rows, int cols, int type);
-		void addToSubjectDescriptorVector(String s);
+
 				
 		void freeUp(Pointer p);
 	}
