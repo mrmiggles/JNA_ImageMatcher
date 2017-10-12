@@ -7,6 +7,8 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 import com.sun.jna.Native;
+import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.ptr.PointerByReference;
 
 import gov.lanl.dll.V3_3_x86.CLibrary;
 
@@ -25,8 +27,8 @@ public class MatchTest {
 	}
 	public void run() {
 		   String path = TestImages.getBasePath();
-	       String searchObject = path + "\\aabatteries_2_1.jpg"; 
-	       String searchScene = path + "\\1_5v_aa_duracell_alkaline_battery.jpg";
+	       String searchObject = path + "\\Subject.jpg";//"\\MICC-Logos\\pepsi\\pepsi_11.png"; 
+	       String searchScene = path + "\\Scene.jpg"; //"\\MICC-Logos\\pepsi\\pepsi_13.png";
 				
 	        try {
 	        	
@@ -80,9 +82,18 @@ public class MatchTest {
 				}
 				
 				//long startTime = System.currentTimeMillis();  
-				cl.testMatching(buf1, h1, w1, buf2, h2, w2);
-				//System.out.println("Comparison: " +  (System.currentTimeMillis() - startTime) + "ms");			     				        			
+				IntByReference goodmatches = new IntByReference();
+				//long startTime = System.currentTimeMillis();  
 				
+				cl.setSubjectImage(buf1, h1, w1);
+				//cl.setSceneImage(buf2, h2, w2);
+				cl.HashAndCompare(buf2, h2, w2, goodmatches);
+				//cl.testMatching(buf1, h1, w1, buf2, h2, w2, goodmatches);
+				//System.out.println("Good Matches: " + goodmatches.getValue() + "\n");
+		
+				
+				//System.out.println("Comparison: " +  (System.currentTimeMillis() - startTime) + "ms");		
+				//cl.CompareImageHash(buf1, h1, w1, buf1, h1, w1);
 				//img1.flush();
 				//buf2 = null;			
 		

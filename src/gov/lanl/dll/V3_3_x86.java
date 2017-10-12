@@ -40,8 +40,10 @@ public class V3_3_x86 {
 		
 		boolean setDetector(int type); //if not called Default is SIFT
 		boolean setMatcher(int type); //if not called Default is BRUTE FORCE W/HAMMING
-		void testMatching(byte[] buf1, int h1, int w1, byte[] buf2, int h2, int w2);
-		
+
+		void testMatching(byte[] buf1, int h1, int w1, byte[] buf2, int h2, int w2, IntByReference goodmatches);
+		void CompareImageHash(byte[] buf1, int h1, int w1, byte[] buf2, int h2, int w2);
+		void HashAndCompare(byte[] buf1, int h1, int w1, IntByReference compareResult);
 		
 		boolean extractFeaturesFromImage(byte[] p, int height, int width);
 		String getDescriptorsAsString();
@@ -49,10 +51,12 @@ public class V3_3_x86 {
 		void getDescriptorsByReference(PointerByReference p);
 		void fillDescriptorArray(float[] desc);
 		
+		void setSceneImage(byte[] buf1, int pictureHeight, int pictureWidth);
 		void getDescriptorRows(IntByReference r);
 		void getDescriptorCols(IntByReference c);
 		void getDescriptorsType(IntByReference t);
 		
+		void setSubjectImage(byte[] buf1, int pictureHeight, int pictureWidth);
 		void setSubjectDescriptors(float[] desc, int rows, int cols, int type);
 		void printSubjectDescriptors();
 		boolean setSubjectKeypoints();
