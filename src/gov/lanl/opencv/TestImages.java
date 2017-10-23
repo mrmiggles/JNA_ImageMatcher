@@ -2,7 +2,7 @@ package gov.lanl.opencv;
 
 public class TestImages {
 
-	private static String user = "299490";
+	private static String user = "Miguel";
 	private static String path = "C:\\Users\\" + user + "\\Desktop\\Alexie";
 	
 	public static String getBasePath(){
