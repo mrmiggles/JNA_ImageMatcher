@@ -28,8 +28,8 @@ public class MatchTest {
 	}
 	public void run() {
 		   String path = TestImages.getBasePath();
-	       String searchObject = path + "\\Subject.jpg";//"\\MICC-Logos\\pepsi\\pepsi_11.png"; 
-	       String searchScene = path + "\\Scene.jpg"; //"\\MICC-Logos\\pepsi\\pepsi_13.png";
+	       String searchObject = path + "\\aabatteries_2_1.jpg";//"\\MICC-Logos\\pepsi\\pepsi_11.png"; 
+	       String searchScene = path + "\\aabatteries_2_1.jpg"; //"\\MICC-Logos\\pepsi\\pepsi_13.png";
 				
 	        try {
 	        	
@@ -84,16 +84,13 @@ public class MatchTest {
 				
 				//long startTime = System.currentTimeMillis();  
 				IntByReference goodmatches = new IntByReference();
-				DoubleByReference hashComparisonResult =  new DoubleByReference();
 				//long startTime = System.currentTimeMillis();  
 				
-				cl.setSubjectImage(buf1, h1, w1);
+				//cl.setSubjectImage(buf1, h1, w1);
 				//cl.setSceneImage(buf2, h2, w2);
 				
-				cl.HashAndCompare(buf2, h2, w2, hashComparisonResult);
-				System.out.println("Hash Compare Result: " + hashComparisonResult.getValue());
-				//cl.testMatching(buf1, h1, w1, buf2, h2, w2, goodmatches);
-				//System.out.println("Good Matches: " + goodmatches.getValue() + "\n");
+				cl.testMatching(buf1, h1, w1, buf2, h2, w2, goodmatches);
+				System.out.println("Good Matches: " + goodmatches.getValue() + "\n");
 		
 				//System.out.println("Comparison: " +  (System.currentTimeMillis() - startTime) + "ms");		
 				//cl.CompareImageHash(buf1, h1, w1, buf1, h1, w1);

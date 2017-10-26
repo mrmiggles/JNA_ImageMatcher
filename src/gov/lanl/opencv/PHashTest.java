@@ -7,7 +7,8 @@ import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.DoubleByReference;
 
-import gov.lanl.dll.V3_3_x86.CLibrary;
+import gov.lanl.dll.OpencvPHasher_x86.CLibrary;
+
 
 public class PHashTest {
 
@@ -17,13 +18,10 @@ public class PHashTest {
 		
 		Native.setProtected(true);
 		//remember you added the external folder location in Build Path -> Library -> Add External Folder
-		cl = (CLibrary) Native.loadLibrary("ImageMatcher", CLibrary.class);
-
-		cl.setDetector(0);
-		cl.setMatcher(1);			
+		cl = (CLibrary) Native.loadLibrary("OpencvPHasher", CLibrary.class);			
 	}
 	public void run() {
-		
+		//vectors because stupid IBM stores everything as a vector in their DB
 		Vector<Integer> h1 = new Vector<Integer>();
 		Vector<Integer> h2 = new Vector<Integer>();
 		
@@ -72,8 +70,16 @@ public class PHashTest {
 		
 		System.out.println("----------------------------------------------------\n");
 		DoubleByReference hashComparisonResult =  new DoubleByReference();
-		cl.comparePrecomputedHashes(hash1, hash2, hashComparisonResult);
-		System.out.println("Hash Compare Result: " + hashComparisonResult.getValue());
+		
+		for(int i=0; i<50; i++){
+			long startTime = System.currentTimeMillis();  
+			cl.comparePrecomputedHashes(hash1, hash2, hashComparisonResult);
+			
+			System.out.println("Comparison: " +  (System.currentTimeMillis() - startTime) + "ms");		
+			System.out.println("Hash Compare Result: " + hashComparisonResult.getValue());
+		}
+
+		
 		
 	}
 	

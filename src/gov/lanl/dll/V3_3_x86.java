@@ -43,10 +43,6 @@ public class V3_3_x86 {
 		boolean setMatcher(int type); //if not called Default is BRUTE FORCE W/HAMMING
 
 		void testMatching(byte[] buf1, int h1, int w1, byte[] buf2, int h2, int w2, IntByReference goodmatches);
-		void CompareImageHash(byte[] buf1, int h1, int w1, byte[] buf2, int h2, int w2);
-		void HashAndCompare(byte[] buf1, int h1, int w1, DoubleByReference compareResult);
-		void comparePrecomputedHashes(int[] hash1, int[] hash2, DoubleByReference result);
-		void comparePrecomputedHashes(Pointer hash1, Pointer hash2, DoubleByReference result);
 		
 		boolean extractFeaturesFromImage(byte[] p, int height, int width);
 		String getDescriptorsAsString();
